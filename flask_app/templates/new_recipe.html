@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Recipe</title>
+    <link rel="stylesheet" 
+    type="text/css" 
+    href="{{ url_for('static', filename ='style.css') }}">
+</head>
+<body>
+    <div>
+        <h1>Add New Recipe</h1>
+        <div>
+            <a href="/dashboard">dashboard</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <form action="/recipe/create" method="post"  class="flex">
+        <div class="flex fcol col aleft">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="">
+            <label for="description">Description:</label>
+            <textarea name="description" id="" cols="30" rows="10"></textarea>
+            <label for="instructions">Instructions:</label>
+            <textarea name="instructions" id="" cols="30" rows="10"></textarea>
+            <button>Create</button>
+        </div>
+        <div class="flex fcol col aleft">
+            <label for="date_made">Date Made On:</label>
+            <input type="date" name="date_made" id="">
+            <label for="quick">Under 30 Minutes?</label>
+            <input type="radio" name="quick" id="" value="Yes">Yes
+            <input type="radio" name="quick" id="" value="No" checked>No
+        </div>
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

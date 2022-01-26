@@ -1,0 +1,21 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+}
+.flex{
+    display: flex;
+}
+.fcol{
+    flex-direction: column;
+}
+.col{
+    flex: 1;
+}
+.aleft{
+    align-items: flex-start;
+}
+.around{
+    justify-content: space-around;
+    align-items: center;
+}
