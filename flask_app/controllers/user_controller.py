@@ -21,10 +21,6 @@ def dashboard():
 def register():
     if not User.validator(request.form):
         return redirect('/')
-    user = User.get_one_by_email(request.form)
-    # if request.form['email'] == user.email:
-    #     flash("the email address you entered is already being used, please use a different email")
-    #     return redirect('/')
     hashbrowns = bcrypt.generate_password_hash(request.form['password'])
     data = {
         **request.form,

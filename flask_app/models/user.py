@@ -3,7 +3,6 @@ import re
 from flask import flash
 from flask_app.models import recipe
 
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class User:
     def __init__(self,data):
@@ -49,7 +48,7 @@ class User:
     def get_one_by_email(cls, data):
         query = (
             "SELECT * FROM users "
-            "WHERE email = %(email)s"
+            "WHERE email = %(email)s;"
         )
         results = connectToMySQL('recipes').query_db(query, data)
         if not results:
@@ -65,8 +64,12 @@ class User:
         if len(form_data['last_name']) < 2:
             flash("Last Name minimum of 2 characters")
             is_valid = False
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         if not EMAIL_REGEX.match(form_data['email']):
             flash("Invalid email address")
+            is_valid = False
+        elif User.get_one_by_email({"email": form_data['email']}):
+            flash("the email address you entered is already being used, please use a different email")
             is_valid = False
         if len(form_data['password']) < 8:
             flash("Password must be a minimum of 8 characters")
